@@ -1,4 +1,5 @@
 from ast import Raise
+from email.mime import image
 from logging import raiseExceptions
 import sqlite3
 import hashlib
@@ -47,8 +48,9 @@ def close_database_link(conn):
     conn.close()
 
 # ? Functions
-def get_image_url(image_name):
-    return 'images/books/' + f'{image_name}.jpg'
+def get_image_url(image_name: str):
+    image_name_slug = image_name.lower().replace(' ','_')
+    return '/media/images/' + f'{image_name_slug}.jpg'
 
 def convert_date(date):
     if '/' in date:

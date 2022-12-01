@@ -5,43 +5,41 @@
 {% block content %}
     <div class="sign_up">
         <h1 class="sign_up__header">Update Ordered Book</h1>
-        <form action="" class="sign_up__form">
+        <form method="POST" class="sign_up__form"  enctype="multipart/form-data">
+            {% csrf_token %}
             <table class="sign_up__table">
                 <tr>
                     <td> <label for="name"></label> Name </td>
-                    <td> <input value="Robert" type="text" name="name" class="entry__input sign_up__input"></td>
+                    <td> <input value="{{name}}" type="text" name="name" class="entry__input sign_up__input"></td>
                 </tr>
                 <tr>
                   <td> <label for="author"></label> Author </td>
-                  <td> <input value="Pineda" type="text" name="author" class="entry__input sign_up__input"></td>
+                  <td> <input value="{{author}}" type="text" name="author" class="entry__input sign_up__input"></td>
                 </tr>
                 <tr>
-                    <td> <label for="release_date"></label> Release Date </td>
-                    <td> <input value="2005" type="number" name="release_date" class="entry__input sign_up__input"></td>
+                    <td> <label for="release_year"></label> Release Year </td>
+                    <td> <input value="{{year}}" type="number" name="year" class="entry__input sign_up__input"></td>
                 </tr>
                 <tr>
                   <td> <label></label> Genre</td>
                   <td> 
-                    <select name="Reg Class" class="entry__input sign_up__input">
-                        <!-- need to use selected for the default one of these options below, e.g <option selected> -->
-                        <option value="fiction">Fiction</option>
-                        <option value="non-Fiction">Non-Fiction</option>
-                        <option value="history">History</option>
-                        <option selected value="children's literature">Children's Literature</option>
-                        <option value="crime">Crime</option>
+                    <select name="genre" class="entry__input sign_up__input">
+                        {% for genre_option in genre_options %}
+                        <option {% if genre_option.1 == genre %}selected{% endif %} value="{{genre_option.1}}">{{genre_option.0}}</option>
+                        {% endfor %}
                     </select>
                     </td>           
                  </tr>
                  <tr>
                     <td> <label for="image"></label> Image </td>
                     <td> 
-                        <div><input type='file' id="upload-image" onchange="pressed()"><label id="fileLabel">None Selected</label></div>
+                        <div><input name="image_name" type='file' id="upload-image" accept="image/*" onchange="pressed()"><label id="fileLabel" name="image">{{image_name}}.jpg</label></div>
                     </td>
                 </tr>
               </table>
               <div class="sign_up__buttons">
                 <div class="sign_up__form_buttons">
-                    <a class="btn btn--primary btn--arrow-hover sign_up__button"> Update </a>
+                    <input type="submit" class="btn btn--primary btn--arrow-hover sign_up__button" value="Update">
                     <a class="btn btn--danger btn--arrow-hover sign_up__button"> Cancel </a>
                 </div>
                 

@@ -27,7 +27,7 @@
         <div class="profile__book__container">
             {% for borrow in borrow_list %}
             <div class="profile__book profile__book">
-                <img src="{% static '' %}images\books\{{borrow.2}}.jpg " alt="{{borrow.0}}" class="profile__book__image"></img>
+                <img src="{% static '' %}media\images\{{borrow.2}}.jpg " alt="{{borrow.0}}" class="profile__book__image"></img>
                 <div class="profile__book__text">
                     <div class="profile__book__details">
                         <p class="profile__book__title">{{borrow.0}}</p>
@@ -52,20 +52,20 @@
         <div class="profile__book__container">
             {% for request in request_list %}
             <div class="profile__book">
-                <img src="{% static '' %}images\books\{{request.2}}.jpg " class="profile__book__image"></img>
+                <img src="{% static '' %}media\images\{{request.2}}.jpg " class="profile__book__image"></img>
                 <div class="profile__book__text">
                     <div class="profile__book__details">
                         <p class="profile__book__title">{{request.0}}</p>
                         <p class="profile__book__author">{{request.1}}</p>
                     </div>
                     <div class="profile__book__dates">
-                        <p class="profile__book__date">Date Requested: {{request.3}}</p>
-                        <p class="profile__book__status profile__book__status--{{request.5}}">Status: {{request.4}}</p>
+                        <p class="profile__book__date">Date Requested: {{request.4}}</p>
+                        <p class="profile__book__status profile__book__status--{{request.6}}">Status: {{request.5}}</p>
                     </div>
                 </div>
                 <div class="profile__book__buttons">
-                    <a href="#" class="btn btn--orange profile__book__button--{{request.5}}">Update</a>
-                    <a href="#" class="btn btn--danger profile__book__button--{{request.5}}">Cancel</a>
+                    <a href="{% url 'profiles:update_request' request_id=request.3 %}" class="btn btn--orange profile__book__button--{{request.6}}">Update</a>
+                    <a href="#" class="btn btn--danger profile__book__button--{{request.6}}">Cancel</a>
                 </div>
             </div>
             {% endfor %}

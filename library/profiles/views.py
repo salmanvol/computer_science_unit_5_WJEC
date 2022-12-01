@@ -1,14 +1,20 @@
+from email.mime import image
 from multiprocessing import context
 from time import strptime
+from webbrowser import get
 from django.shortcuts import render
-
+from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponseRedirect
 
 # third party plugins
+from django.utils.datastructures import MultiValueDictKeyError
 from base.database import open_database_link,close_database_link, get_image_url, convert_date, add_months
 from base.database import genre_options,genders,reg_classes
+from base.settings import STATIC_DIR
 
 import datetime
+from PIL import Image
+from io import BytesIO
 
 # Create your views here.
 
@@ -28,7 +34,7 @@ def profile(request, profile_num):
     context_dict.update({'borrow_list': borrow_list})
 
     # books requested
-    c.execute(f"SELECT BookName, BookAuthor, BookImage, RequestDate, RequestStatus FROM Request WHERE StudentID={profile_num}")
+    c.execute(f"SELECT BookName, BookAuthor, BookImage, RequestID, RequestDate, RequestStatus FROM Request WHERE StudentID={profile_num}")
     request_list = c.fetchall()
     for request_book_num in range(len(request_list)):
         request_book = list(request_list[request_book_num])
@@ -108,11 +114,37 @@ def extend_borrow(request,borrow_id):
 
 
 def update_request(request,request_id):
+    print(request.POST, request.FILES)
     conn, c = open_database_link()
-    c.execute(f"SELECT BookName,BookAuthor,BookYear,BookGenre FROM Request WHERE RequestID={request_id}")
-    request_book = c.fetchone()
-    print(request_book)
-    context_dict = {}
+    c.execute(f"SELECT StudentID, BookName,BookAuthor,BookYear,BookGenre,BookImage FROM Request WHERE RequestID={request_id}")
+    student_id, name,author,year,genre,image_name = c.fetchone()
+
+    if request.method == 'POST':
+        name,author,year,genre = request.POST['name'],request.POST['author'],request.POST['year'], request.POST['genre']
+        image_url = get_image_url(name)
+        try:
+            upload = request.FILES['image_name']
+            image = Image.open(upload)
+            # for PNG images discarding the alpha channel and fill it with some color
+            if image.mode in ('RGBA', 'LA'):
+                background = Image.new(image.mode[:-1], image.size, '#fff')
+                background.paste(image, image.split()[-1])
+                image = background
+            rgb_im = image.convert("RGB")
+            rgb_im.save(STATIC_DIR + image_url)
+        except MultiValueDictKeyError:
+            pass
+
+        c.execute(f"UPDATE Request SET BookName='{name}', BookAuthor='{author}', BookYear={year}, BookGenre='{genre}', BookImage='{image_name}' WHERE RequestID={request_id}")
+        close_database_link(conn)
+        return HttpResponseRedirect(f'/profiles/{student_id}')
+
+
+        # fss = FileSystemStorage()
+        # file = fss.save(name, rgb_im)
+        # file_url = fss.url(file)
+    close_database_link(conn)
+    context_dict = {'name':name, 'author': author, 'year':year,'genre':genre,'image_name':image_name, 'genre_options':genre_options}
     return render(request, "profiles/update_request.html", context_dict)
 
 
