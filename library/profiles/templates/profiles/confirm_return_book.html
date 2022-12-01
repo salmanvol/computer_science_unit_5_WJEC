@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Return Book{% endblock title %}
+
+{% block content %}
+    <div class="account_delete__container">
+        <div class="account_delete">
+            <h2 class="account_delete__header"> Are you sure you want to return <a href="{% url 'catalogue:detail' book_num=book_id %}">{{book_title}}</a>? </h2>
+            <p class="account_delete__return__sub-text">Please ensure it has already been place on the correct shelf</p>
+            <a class="btn btn--primary btn--arrow-hover account_delete__button"> Cancel </a>
+            <a href="{% url 'profiles:return_book_post' borrow_id=borrow_id %}" class="btn btn--positive btn--arrow-hover account_delete__button"> Return </a>
+    
+        </div>
+    </div>
+{% endblock content %}

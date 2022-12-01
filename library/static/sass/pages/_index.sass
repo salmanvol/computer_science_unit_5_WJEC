@@ -1,0 +1,53 @@
+.index_section
+    
+    &__container
+        max-width: 90%
+        margin: auto
+
+    &__title
+        padding-top: 2rem
+        font-weight: normal
+        font-size: 3rem
+
+    &__book-container
+        padding-top: 2rem
+        display: grid
+        // * makes all column width the same no matter length of content
+        grid-auto-columns: 23rem
+        grid-auto-flow: column
+        gap: 4rem
+        justify-content: start
+        text-align: center
+
+
+    &__book
+        width: 100%
+        background: #dddddd
+        padding: 1.5rem 0
+        margin: auto
+        border-radius: 10%
+        display: grid
+        gap: 0.5rem
+        white-space: nowrap
+        text-decoration: none
+        color: #000
+        transition: .2s
+
+        &:hover
+            background: #d3d3d3
+
+
+        &-image
+            margin: auto
+            height: 19rem
+            width: 12rem
+
+        &-title
+            padding-top: .5rem
+            font-weight: normal
+            font-size: 2rem
+
+        &-author
+            font-weight: normal
+            font-size: 1.3rem
+

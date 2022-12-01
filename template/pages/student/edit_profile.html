@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student Profile</title>
+    <link rel="stylesheet" href="/template/css/main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header__image">
+            <image src="/template/images/logo.png"></image>
+        </div>
+        <div class="header__buttons">
+            <a class="header__button" href="">Search</a>
+            <a class="header__button" href="">Request Book</a>
+            <a class="header__button" href="">Profile</a>
+            <a class="header__button" href="">Login</a>
+        </div>
+
+    </header>
+
+
+    <div class="sign_up">
+        <form class="sign_up__form">
+            <table class="sign_up__table">
+                <tr>
+                    <td> <label for="ID"></label> ID </td>
+                    <td> 1</td>
+                </tr>
+                <tr>
+                    <td> <label for="name"></label> First Name </td>
+                    <td> <input value="Robert" type="text" name="name" class="entry__input sign_up__input"></td>
+                </tr>
+                <tr>
+                  <td> <label for="surname"></label> Surname </td>
+                  <td> <input value="Pinedia" type="text" name="surname" class="entry__input sign_up__input"></td>
+                </tr>
+                <tr>
+                    <td> <label for="email"></label> Email Address </td>
+                    <td> <input value="student1@email.com" type="email" name="email" class="entry__input sign_up__input"></td>
+                </tr>
+                <tr>
+                  <td> <label for="dob"></label> DOB </td>
+                  <td> <input value="2005-01-01" type="date" name="dob" class="entry__input sign_up__input"></td>
+                </tr>
+                <tr>
+                    <td> <label for="gender"></label> Gender </td>
+                    <td> 
+                    <select selected="male" name="gender" id="gender" class="entry__input sign_up__input">
+                        <option selected value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                    </td>
+                </tr>
+                <tr>
+                  <td> <label for="reg_class"></label> Reg Class </td>
+                  <td> 
+                    <select name="Reg Class" id="Reg Class" class="entry__input sign_up__input">
+                        <option value="7C">7C</option>
+                        <option value="7B">7B</option>
+                        <option value="7A">7A</option>
+                        <option value="8C">8C</option>
+                        <option value="8B">8B</option>
+                        <option value="8A">8A</option>
+                        <option selected value="12C">12C</option>
+                    </select>
+                    </td>                </tr>
+              </table>
+              <div class="sign_up__buttons">
+                <a class="btn btn--positive btn--arrow-hover sign_up__button"> Cancel </a>
+                <div class="sign_up__form_buttons">
+                    <a class="btn btn--primary btn--arrow-hover sign_up__button"> Save </a>
+                    <a class="btn btn--danger btn--arrow-hover sign_up__button"> Delete </a>
+                </div>
+                
+              </div>
+        </form>
+    </div>
+    
+</body>
+</html>

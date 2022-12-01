@@ -1,0 +1,245 @@
+{% extends "account/base.html" %}
+<!-- Load bootstrap -->
+{% load bootstrap4 %}
+{% load i18n %}
+{% load account socialaccount %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block title %}Login/Signup{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block content %}
+<section class="hero-wrap hero-wrap-2" style="background-image:url({% static 'images/bg_1.jpg' %})" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end">
+            <div class="col-md-12 ftco-animate mb-5">
+                <p class="breadcrumbs mb-0">
+                    <span class="mr-3">
+                        <a href="{% url 'organisers:index' %}">
+                            Home <i class="fa fa-chevron-right"></i>
+                        </a>
+                    </span>
+                    <span>
+                        Login/Sign up <i class="fa fa-chevron-right"></i>
+                    </span>
+                </p>
+                <h1 class="mb-3 bread">Login/Sign up</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section ftco-no-pt ftco-search-wrap bg-{% if form.errors %}danger{% else %}secondary{% endif %}">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="ftco-search d-flex justify-content-center text-center">
+					<div class="row">
+						<div class="col-md-12 nav-link-wrap">
+							<div class="nav nav-pills text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+								<a class="nav-link {{show_login}}" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Login</a>
+
+								<a class="nav-link {{show_signup}}" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">Sign up</a>
+
+							</div>
+						</div>
+						<div class="col-md-12 tab-wrap">
+
+							<div class="tab-content p-4" id="v-pills-tabContent">
+
+								<div class="tab-pane fade {{show_login}}" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
+									<form class="search-job" method="POST" action="{% url 'accounts:login' %}">
+                    {% csrf_token %}
+										<div class="row">
+                      {% for hidden_field in form.hidden_fields %}
+                        {{ hidden_field }}
+                      {% endfor %}
+
+                      {% if form.non_field_errors %}
+                          {% for error in form.non_field_errors %}
+                          <div class="col-lg-12">
+                            <div class="alert alert-danger alert-dismissible alert-link" role="alert">
+                                <button class="close" type="button" data-dismiss="alert" aria-label="close">×</button>{{error}}
+                            </div>
+                          </div>
+                          {% endfor %}
+                      {% endif %}
+											<div class="col-lg" style="margin-top:5px">
+												<div class="form-group">
+													<div class="form-field">
+														<div class="icon"><span class="icon-briefcase"></span></div>
+														<input type="text" value="{% if form.login.value %}{{form.login.value}}{% endif %}" style="border-color:{% if form.errors and form.login.value %}#dc3545{% elif request.method == 'POST' and form.login.value %}#28a745{% else %}#fff{% endif %}!important" class="form-control " placeholder="Username/Organisation Name" name="login" autofocus="autofocus" maxlength="150" title required id="id_login">
+													</div>
+												</div>
+											</div>
+											<div class="col-lg" style="margin-top:5px">
+												<div class="form-group">
+													<div class="form-field">
+														<div class="icon"><span class="icon-map-marker"></span></div>
+														<input type="password" style="border-color:{% if form.errors and form.password.value %}#dc3545{% elif request.method == 'POST' and form.login.value %}#28a745{% else %}#fff{% endif %}!important" class="form-control" placeholder="Password" name="password" title required id="id_password">
+													</div>
+												</div>
+											</div>
+                      <div class="col-lg" style="margin-top:5px">
+                        <div class="form-group">
+                          <div class="form-field">
+                            <div class="select-wrap">
+                              <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                              <select name="remember" id="id_remember" class="form-control" style="border-color:{% if request.method == 'POST' and form.login.value or form.password.value %}#28a745{% else %}#fff{% endif %}!important">
+                                <option value="True" >Remember Me</option>
+                                <option value="False" {% if form.remember.value == False %}selected{% endif %}>Do Not Remember Me</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+											<div class="col-md" style="margin-top:5px">
+												<div class="form-group">
+													<div class="form-field">
+														<button type="submit" class="form-control btn btn-primary">Login</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+
+								<div class="tab-pane fade {{show_signup}}" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-performance-tab">
+									<form method="POST" action="{% url 'accounts:signup' %}" class="search-job">
+                    {% csrf_token %}
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="form-group">
+													<div class="form-field">
+														<div class="icon"><span class="icon-user"></span></div>
+														<input type="email" name="email" value="{% if form.email.value %}{{form.email.value}}{% endif %}" class="form-control" placeholder="Email Address" title required id="id_email" style="border-color:{% if form.email.errors %}#dc3545{% elif request.method == 'POST' %}#28a745{% else %}#fff{% endif %}!important">
+                            {% if form.email.errors %}
+                                {% for error in form.email.errors %}
+                                  <small style="color:#dc3545">{{error}}</small>
+                                {% endfor %}
+                            {% endif %}
+													</div>
+												</div>
+											</div><br><br>
+                      <div class="col-lg-6">
+												<div class="form-group">
+													<div class="form-field">
+														<div class="icon"><span class="icon-user"></span></div>
+														<input type="text" name="username" value="{% if form.username.value %}{{form.username.value}}{% endif %}" class="form-control" placeholder="Username" autofocus="autofocus" minlength="1" maxlength="150" title required id="id_username" style="border-color:{% if form.username.errors %}#dc3545{% elif request.method == 'POST' %}#28a745{% else %}#fff{% endif %}!important">
+                            {% if form.username.errors %}
+                                {% for error in form.username.errors %}
+                                  <small style="color:#dc3545">{{error}}</small>
+                                {% endfor %}
+                            {% endif %}
+													</div>
+												</div>
+											</div>
+                      <br><br>
+											<div class="col-lg-6">
+												<div class="form-group">
+													<div class="form-field">
+														<div class="icon"><span class="icon-map-marker"></span></div>
+														<input type="password" value="{% if form.password1.value %}{{form.password1.value}}{% endif %}" class="form-control" placeholder="Password" name="password1" title required id="id_password1" style="border-color:{% if form.password1.errors %}#dc3545{% elif request.method == 'POST' %}#28a745{% else %}#fff{% endif %}!important">
+                            {% if form.password1.errors %}
+                                {% for error in form.password1.errors %}
+                                  <small style="color:#dc3545">{{error}}</small>
+                                {% endfor %}
+                            {% endif %}
+													</div>
+												</div>
+											</div>
+                      <div class="col-lg-6">
+												<div class="form-group">
+													<div class="form-field">
+														<div class="icon"><span class="icon-map-marker"></span></div>
+														<input type="password" name="password2" value="{% if form.password2.value %}{{form.password2.value}}{% endif %}" class="form-control" placeholder="Confirm Password" title required id="id_password2" style="border-color:{% if form.password2.errors %}#dc3545{% elif request.method == 'POST' %}#28a745{% else %}#fff{% endif %}!important">
+                            {% if form.password2.errors %}
+                                {% for error in form.password2.errors %}
+                                  <small>{{error}}</small>
+                                {% endfor %}
+                            {% endif %}
+													</div>
+												</div>
+											</div><br><br>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <div class="form-field">
+                            <div class="select-wrap">
+                              <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                              <select name="mode" id="" class="form-control" style="border-color:{% if request.method == 'POST' %}#28a745{% else %}#fff{% endif %}!important">
+                                <option value="volunteer">I Want To Be A Volunteer</option>
+                                <option value="organiser">I Want To Be An Organiser</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+											<div class="col-lg">
+												<div class="form-group">
+													<div class="form-field">
+														<button type="submit" class="form-control btn btn-primary">Sign up</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+        <a style="color:white;margin-left:25px;font-size:20px" class="button secondaryAction" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="ftco-section ftco-no-pt services-section bg-{% if form.errors %}danger{% else %}secondary{% endif %}">
+	<div class="container">
+		<div class="row d-flex">
+			<div class="col-md-3 d-flex align-self-stretch ftco-animate fadeInUp ftco-animated">
+				<div class="media block-6 services d-block text-center">
+					<div class="icon"><img style="width:75px;height:75px" src="{% static "images/shield.png" %}" alt="shield"> </div>
+					<div class="media-body">
+						<h3 class="heading mb-3">Secure By Default</h3>
+						<p>We take the security of your sensitive information very seriously, that's why we boast three layers of high-end protection.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 d-flex align-self-stretch ftco-animate fadeInUp ftco-animated">
+				<div class="media block-6 services d-block text-center">
+					<div class="icon"><img style="width:75px;height:75px" src="{% static "images/padlock.png" %}" alt="Padlock"> </div>
+					<div class="media-body">
+						<h3 class="heading mb-3">Encrypted By Default</h3>
+						<p>We use advanced hasing algorithims to ensure that even if your password is comprimised, your account is still protected.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 d-flex align-self-stretch ftco-animate fadeInUp ftco-animated">
+				<div class="media block-6 services d-block text-center">
+					<div class="icon"><img style="width:75px;height:75px" src="{% static "images/spy.png" %}" alt="Spy"> </div>
+					<div class="media-body">
+						<h3 class="heading mb-3">Private By Default</h3>
+						<p>Multiple layers of security ensure that only authorised personel are able to access or edit any private information.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 d-flex align-self-stretch ftco-animate fadeInUp ftco-animated">
+				<div class="media block-6 services d-block text-center">
+					<div class="icon"><img style="width:75px;height:75px" src="{% static "images/success.png" %}" alt="success"> </div>
+					<div class="media-body">
+						<h3 class="heading mb-3">Convenient By Default</h3>
+						<p>All of this happens behind the scenes, meaning you enjoy a much simpler and smooth experience.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

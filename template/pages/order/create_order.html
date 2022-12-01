@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Order | St Joseph's</title>
+    <link rel="stylesheet" href="/template/css/main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header__image">
+            <image src="/template/images/logo.png"></image>
+        </div>
+        <div class="header__buttons">
+            <a class="header__button" href="">Search</a>
+            <a class="header__button" href="">Request Book</a>
+            <a class="header__button" href="">Profile</a>
+            <a class="header__button" href="">Login</a>
+        </div>
+
+    </header>
+
+
+    <div class="sign_up">
+        <h1 class="sign_up__header">Create New Order</h1>
+        <form action="" class="sign_up__form">
+            <table class="sign_up__table">
+                <tr>
+                    <td> <label for="name"></label> Name </td>
+                    <td> <input value="Robert" type="text" name="name" class="entry__input sign_up__input"></td>
+                </tr>
+                <tr>
+                  <td> <label for="author"></label> Author </td>
+                  <td> <input value="Pineda" type="text" name="author" class="entry__input sign_up__input"></td>
+                </tr>
+                <tr>
+                    <td> <label for="release_date"></label> Release Date </td>
+                    <td> <input value="2005" type="number" name="release_date" class="entry__input sign_up__input"></td>
+                </tr>
+                <tr>
+                  <td> <label></label> Genre</td>
+                  <td> 
+                    <select name="Reg Class" class="entry__input sign_up__input">
+                        <!-- need to use selected for the default one of these options below, e.g <option selected> -->
+                        <option value="fiction">Fiction</option>
+                        <option value="non-Fiction">Non-Fiction</option>
+                        <option value="history">History</option>
+                        <option selected value="children's literature">Children's Literature</option>
+                        <option value="crime">Crime</option>
+                    </select>
+                    </td>           
+                 </tr>
+                 <tr>
+                    <td> <label for="image"></label> Image </td>
+                    <td> 
+                        <div><input type='file' id="upload-image"></div>
+                    </td>
+                </tr>
+              </table>
+              <div class="sign_up__buttons">
+                <div class="sign_up__form_buttons">
+                    <a class="btn btn--primary btn--arrow-hover sign_up__button"> Create </a>
+                    <a class="btn btn--danger btn--arrow-hover sign_up__button"> Cancel </a>
+                </div>
+                
+              </div>
+        </form>
+    </div>
+    
+</body>
+
+</html>

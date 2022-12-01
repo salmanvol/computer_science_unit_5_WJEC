@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <main>
+        <div class="search_section__container">
+            <div class="search__section__filter-container">
+                <form method="get" class="filter__form">
+                    <table class="filter__table">
+                        <tr>
+                            <td> <label for="title"></label> Title </td>
+                            <td> <input value="{{title}}" type="text" name="title" class="entry__input filter__input"></td>
+                        </tr>
+                        <tr>
+                          <td> <label for="author"></label> Author </td>
+                          <td> <input value="{{author}}"  type="text" name="author" class="entry__input filter__input"></td>
+                        </tr>
+                        <tr>
+                            <td> <label for="release_date"></label> Release Date </td>
+                            <td> <input value="{{release_date}}" type="number" name="release_date" class="entry__input filter__input"></td>
+                        </tr>
+                        <tr>
+                          <td> <label></label> Genre</td>
+                          <td> 
+                            <select name="genre" class="entry__input filter__input">
+                                <!-- need to use selected for the default one of these options below, e.g <option selected> -->
+                                <option value=""></option>
+                                {% for genre_option in genre_options %}
+                                <option {% if genre_option.1 == genre %}selected{% endif %} value="{{genre_option.1}}">{{genre_option.0}}</option>
+                                {% endfor %}
+                            </select>
+                            </td>           
+                         </tr>
+                        </tr>
+                        <tr>
+                          <td> <label></label> Tags</td>
+                          <td> 
+                            <select name="tags" class="entry__input filter__input">
+                                <!-- need to use selected for the default one of these options below, e.g <option selected> -->
+                                <option value="" selected hidden></option>
+                                <option value="fiction">Best-seller</option>
+                                <option value="non-Fiction">Biology</option>
+                                <option value="history">True Crime</option>
+                                <option value="children literature">Short Read</option>
+                                <option value="crime">Popular</option>
+                            </select>
+                            </td>    
+                         </tr>
+                         <tr>
+                             <td class="filter__tag_row"></td>
+                             <td class="filter__tag_row"><div class="filter__tag">True Crime <a href="" class="filter__tag__X">X</a></div>       </td>
+                         </tr>
+                         <tr >
+                             <td class="filter__tag_row"></td>
+                             <td class="filter__tag_row"><div class="filter__tag">Best Seller <a href="" class="filter__tag__X">X</a></div>       </td>
+                         </tr>
+                      </table>
+                      <div class="filter__buttons">
+                        <div class="filter__form_buttons">
+                            <input type="submit" value="Search" class="btn btn--primary btn--arrow-hover filter__button">
+                            <a class="btn btn--danger btn--arrow-hover filter__button"> Cancel </a>
+                        </div>
+                        
+                      </div>
+                </form>
+            </div>
+            <div class="search_section__">
+                <div class="search_section__book-container">
+                    {% for book in results %}
+                    <a href="{% url 'catalogue:detail' book_num=book.0 %}" class="search_section__book">
+                        <img src="{% static book.3 %} " class="search_section__book-image"></img>
+                        <h3 class="search_section__book-title">{{book.1}}</h3>
+                        <h4 class="search_section__book-author">{{book.2}}</h4>
+                    </a>
+                    {% endfor %}
+                </div>
+                <div class="search_section__text">
+                    <p class="search_section__page-num">Page {{current_page}} of {{total_pages}} </p>
+                    <p class="search_section__page-direction"><a href="{{prev_page}}">Prev</a> / <a href="{{next_page}}">Next</a> </p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+{% endblock content %}

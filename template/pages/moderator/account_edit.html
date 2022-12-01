@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Edit</title>
+    <link rel="stylesheet" href="/template/css/main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header__image">
+            <image src="/template/images/logo.png"></image>
+        </div>
+        <div class="header__buttons">
+            <a class="header__button" href="">Search</a>
+            <a class="header__button" href="">Request Book</a>
+            <a class="header__button" href="">Profile</a>
+            <a class="header__button" href="">Login</a>
+        </div>
+
+    </header>
+
+
+    <div class="account_edit">
+        <form action="" class="account_edit__form">
+            <table class="account_edit__table">
+                <tr>
+                  <td>ID</td>
+                  <td class="account_edit__ID_label">1</td>
+                </tr>
+                <tr>
+                  <td> <label for="name"></label> Username </td>
+                  <td> <input type="text" name="name" value="name" class="entry__input account_edit__input"></td>
+                </tr>
+                <tr>
+                    <td> <label for="email"></label> Email Address </td>
+                    <td> <input type="email" name="email" value="email.email.com" class="entry__input account_edit__input"></td>
+                </tr>
+              </table>
+              <div class="account_edit__buttons">
+                <a class="btn btn--positive btn--arrow-hover account_edit__button"> Cancel </a>
+                <div class="account_edit__form_buttons">
+                    <a class="btn btn--primary btn--arrow-hover account_edit__button"> Save </a>
+                    <a class="btn btn--danger btn--arrow-hover account_edit__button"> Delete </a>
+                </div>
+                
+              </div>
+        </form>
+    </div>
+    
+</body>
+</html>

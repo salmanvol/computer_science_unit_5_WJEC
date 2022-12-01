@@ -1,0 +1,98 @@
+.login
+    background: #ececec
+    max-width: 30rem
+    text-align: center
+    margin: 3% auto
+    border-radius: 20%
+
+    &__header
+        padding: 2rem 0 1rem 0
+
+.entry
+
+    &__label
+        font-size: 1.5rem
+        padding: 2rem 0 .5rem 0
+
+    &__input
+        font-size: 1.5rem
+        margin: .5rem 0 3rem 0
+        border-radius: 5px
+        border: solid 2px #0563C1
+
+    &__submit
+
+.btn
+    display: inline-block
+    border-radius: 10px
+    border: none
+    color: #FFFFFF
+    text-align: center
+    font-size: 2rem
+    padding: 1rem
+    // height: 2.5rem
+    line-height: 2.5rem
+    width: 8rem
+    transition: all 0.5s
+    cursor: pointer
+    margin: 5px
+    text-decoration: none
+
+    &--primary
+        background-color: var(--color-primary)
+
+    &--secondary
+        background-color: var(--color-secondary)
+
+    &--positive
+        background-color: green
+
+    &--danger
+        background-color: var(--color-red)
+
+    &--orange
+        background-color: var(--color-orange)
+
+    &--thin
+
+    &--arrow-hover
+        span 
+            cursor: pointer
+            display: inline-block
+            position: relative
+            transition: 0.5s
+
+
+            &:after
+                content: '\00bb'
+                position: absolute
+                opacity: 0
+                top: 0
+                right: -20px
+                transition: 0.5s
+                
+
+        &:hover span
+            padding-right: 25px
+
+
+            &:after
+                opacity: 1
+                right: 0
+
+    &--button
+        width: 90%
+
+    &--link--inactive
+        pointer-events: none
+        cursor: default
+        background-color: var(--color-grey-light-4)
+
+
+
+
+.container
+    max-width: 75%
+    margin: auto auto
+    padding: 2rem 4rem
+    background: #f3f3f3

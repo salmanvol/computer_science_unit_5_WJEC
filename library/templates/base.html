@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block title %}Index{% endblock title %} | St Joseph's RC High</title>
+	<link rel="stylesheet" href="{% static '/css/main.css' %}">
+</head>
+<body>
+	<header class="header">
+		<div class="header__image">
+			<image src="{% static 'images/logo.png' %}"></image>
+		</div>
+		<div class="header__buttons">
+			<a class="header__button" href="{% url 'catalogue:search_default' %}">Search</a>
+			<a class="header__button" href="">Request Book</a>
+			<a class="header__button" href="{% url 'profiles:profile' profile_num=1 %}">Profile</a>
+			<a class="header__button" href="">Login</a>
+		</div>
+
+	</header>
+	
+{% block content %}
+{% endblock %}
+{% block post_javascript %}{% endblock %}
+
+
+</body></html>

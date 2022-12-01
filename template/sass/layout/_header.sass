@@ -1,0 +1,32 @@
+.header
+    background-color: #000
+    display: flex
+    justify-content: space-around
+    flex-wrap: nowrap
+
+    &__image
+        flex: 60%
+
+        & img
+            height: 10rem
+            padding: 1rem
+
+    &__buttons
+        display: flex
+        justify-content: space-between
+        align-items: center
+        flex: 40%
+
+    &__button
+        font-size: 1.5rem
+        color: white
+        background: var(--color-secondary)
+        border-radius: 10px
+        outline: solid 1px #fff
+        min-width: 13rem
+        max-width: 15rem
+        padding: 2rem 1rem
+        margin: 0 2rem
+        flex-grow: 1
+        text-align: center
+        text-decoration: none

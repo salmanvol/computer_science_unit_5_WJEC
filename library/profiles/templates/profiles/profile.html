@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock title %}
+
+{% block content %}
+    <main class="profile__container">
+        <h1 class="profile__header">Profile</h1>
+        <div class="profile_detail__container">
+            <div class="profile_detail__personal__container">
+                <p class="profile_detail__personal__entry">{{name}}</p>
+                <a href="mailto:johpin@school.com" class="profile_detail__personal__entry">{{email}}</a>
+                <p class="profile_detail__personal__entry">{{dob}}</p>
+                <p class="profile_detail__personal__entry">{{gender}}</p>
+                <p class="profile_detail__personal__entry">{{reg_class}}</p>
+            </div>
+            <div class="profile_detail__data__container">
+                <p class="profile_detail__data__entry">Total Books Borrowed: 3</p>
+                <p class="profile_detail__data__entry profile_detail__data__entry--red">Total Books Overdue: 2</p>
+                <p class="profile_detail__data__entry">Total Books Requested: 0</p>
+            </div>
+            <div class="profile_detail__button__container">
+                <a href="{% url 'profiles:edit_account' student_id=student_id %}" class="btn btn--primary">Update</a>
+            </div>
+        </div>
+
+        <h2 class="profile__section-header">Books Borrowed</h2>
+        <div class="profile__book__container">
+            {% for borrow in borrow_list %}
+            <div class="profile__book profile__book">
+                <img src="{% static '' %}images\books\{{borrow.2}}.jpg " alt="{{borrow.0}}" class="profile__book__image"></img>
+                <div class="profile__book__text">
+                    <div class="profile__book__details">
+                        <p class="profile__book__title">{{borrow.0}}</p>
+                        <p class="profile__book__author">{{borrow.1}}</p>
+                    </div>
+                    <div class="profile__book__dates">
+                        <p class="profile__book__date">Date Borrowed: {{borrow.4}}</p>
+                        <p class="profile__book__date">Date Return: {{borrow.5}}</p>
+                    </div>
+                </div>
+                <div class="profile__book__buttons">
+                    <a href="{% url 'profiles:return_book' borrow_id=borrow.3 %}" class="btn btn--primary">Return</a>
+                    <button onclick="ConfirmExtend('{% url 'profiles:extend_borrow' borrow_id=borrow.3 %}')"  class="btn btn--secondary btn--button" >Extend</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        
+
+        <h2 class="profile__section-header">Books Requested</h2>
+        <div class="profile__book__container">
+            {% for request in request_list %}
+            <div class="profile__book">
+                <img src="{% static '' %}images\books\{{request.2}}.jpg " class="profile__book__image"></img>
+                <div class="profile__book__text">
+                    <div class="profile__book__details">
+                        <p class="profile__book__title">{{request.0}}</p>
+                        <p class="profile__book__author">{{request.1}}</p>
+                    </div>
+                    <div class="profile__book__dates">
+                        <p class="profile__book__date">Date Requested: {{request.3}}</p>
+                        <p class="profile__book__status profile__book__status--{{request.5}}">Status: {{request.4}}</p>
+                    </div>
+                </div>
+                <div class="profile__book__buttons">
+                    <a href="#" class="btn btn--orange profile__book__button--{{request.5}}">Update</a>
+                    <a href="#" class="btn btn--danger profile__book__button--{{request.5}}">Cancel</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        
+    </main>
+
+{% endblock content %}
+
+{% block post_javascript %}
+<script>
+    function ConfirmExtend(url_link) {
+      let text = "Are you sure you would like to Extend the borrow time for this book?";
+      if (confirm(text) == true) {
+        window.location.href = url_link;
+      } else {
+        text = "You canceled!";
+      }
+      document.getElementById("demo").innerHTML = text;
+    }
+    </script>
+{% endblock %}

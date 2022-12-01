@@ -1,0 +1,15 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Base Template Admin Interface</a></h1>
+{% endblock %}
+
+{% block extrahead %}
+    <link href="/static/admin/css/dark.css" type="text/css" media="(prefers-color-scheme: dark)" rel="stylesheet">
+    <link rel="stylesheet" href="/static/django-allauth/admin/base_site.css" type="text/css">
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+© 2020 GitHub, Inc.

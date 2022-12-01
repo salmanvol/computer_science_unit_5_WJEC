@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{title}}{% endblock title %}
+
+{% block content %}
+    <main>
+        <div class="detail__container">
+            <img src="{% static image_url %}" alt="" class="detail__image">
+            <div class="detail__text__container">
+                <h2 class="detail__text__title">{{title}}</h2>
+                <div class="detail__text__author">{{author}}</div>
+                <div class="detail__text__release-date">Release Date: {{release_date}}</div>
+                <div class="detail__text__genre">Genre: {{genre}}</div>
+                <div class="detail__text__availibility">Availibility: <span class=" detail__text__availibility--{{availability_css}}"> {{availability}}</span></div>
+                <table class="detail__text__tag__container">
+                    <tr>
+                        <td>Tags:</td>
+                        <td>Best Seller</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Fiction</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Humor</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Horror</td>
+                    </tr>
+                    
+                </table>
+            </div>
+            <div class="detail__button__container">
+                <a href="{% url 'catalogue:borrow_post' book_id=id %} " class="btn btn--primary detail__button__button {{borrow_button_enabled__css}}">Borrow</a>
+            </div>
+        </div>
+    </main>
+{% endblock content %}

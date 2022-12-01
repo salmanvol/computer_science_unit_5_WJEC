@@ -1,0 +1,44 @@
+.detail
+
+    &__container
+        display: grid
+        grid-template-columns: 45rem 1fr 1fr
+
+        width: 90%
+        margin: 5rem auto
+        background: var(--color-grey-light-1)
+
+
+    &__image
+        width: 40rem
+
+    &__text
+        &__container
+            display: grid
+            font-size: 3rem
+        &__title
+            font-weight: normal
+            font-size: 5rem
+
+        &__availibility
+
+            &--in-shelf
+                color: var(--color-positive)
+
+            &--borrowed
+                color: var(--color-orange)
+
+            &--overdue 
+                color: var(--color-red)
+            
+            &--unavailable
+                // Keep standard colour
+
+    &__button
+        &__container
+            position: relative
+
+        &__button
+            position: absolute
+            bottom: 0
+            right: 0

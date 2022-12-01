@@ -1,0 +1,148 @@
+.profile
+
+    &__container
+        font-size: 1.5rem
+        width: 90%
+        margin: auto
+
+    &__header
+        font-size: 5rem
+        text-align: center
+        padding: 4rem
+
+    &_detail
+        
+        &__container
+            display: grid
+            grid-auto-flow: column
+            text-align: center
+            background: var(--color-grey-light-2)
+            padding: 4rem
+
+        
+        &__personal,&__data,&__button
+        
+            &__container
+                display: grid
+                grid-gap: 2rem
+                align-items: center
+                align-content: center
+                justify-content: center
+
+
+
+        &__data
+                &__entry
+
+                    &--red
+                        color: var(--color-red)
+
+        &__button
+
+            &__container
+                padding-right: 8rem
+                justify-self: right     
+
+    &__section-header
+        font-weight: normal
+        padding: 2rem 0
+
+    &__book
+
+
+
+        &__container
+            display: grid
+            grid-gap: 2rem
+
+        display: grid
+        grid-auto-flow: column
+        grid-template-columns: 15rem auto auto
+        background: var(--color-grey-light-2)
+        padding: 2rem
+        border-radius: 3%
+
+        &__image
+            width: 12rem
+            height: 19rem
+
+
+
+        &__text
+            display: flex
+            flex-flow: column
+            justify-content: space-between
+            padding: 2rem 0
+
+
+
+        &__title
+            font-size: 2.5rem
+            padding-bottom: 0.5rem   
+
+        &__author
+            font-size: 1.7rem
+
+        &__dates
+            display: grid
+            gap: 1.5rem
+
+        &__date
+
+            &--red
+                color: var(--color-red)
+
+        &__status
+            
+            &--rejected
+                color: var(--color-red)
+
+            &--accepted
+                color: var(--color-orange)
+            
+            &--ready
+                color: var(--color-positive)
+            
+            &--pending
+                // * currently doesn't change colour, but for in future if I ever want to.
+    
+        &__buttons
+            padding-right: 10rem
+            justify-self: right
+            align-self: center
+            display: grid
+            grid-auto-flow: row
+
+        &__button
+
+
+            &--ready, &--accepted, &--rejected
+                background: #dfdfdf25
+
+
+
+
+.order-list
+
+    &__header__container
+        position: relative
+
+    &__button
+        position: absolute
+        right: 0
+        bottom: 3.5rem
+
+    &__book
+
+        &__status
+
+            &--pending
+
+            &--accepted
+                color: var(--color-orange)
+            
+            &--rejected
+                color: var(--color-red)
+
+            &--ready 
+                color: var(--color-positive)

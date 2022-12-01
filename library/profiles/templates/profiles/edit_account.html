@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Edit Account{% endblock title %}
+
+{% block content %}
+    <div class="sign_up">
+        <h1 class="sign_up__header">Edit Account Details</h1>
+        <form method="POST" class="sign_up__form">
+            {% csrf_token %}
+            <table class="sign_up__table">
+                <tr>
+                    <td> <label for="name"></label> First Name </td>
+                    <td> <input value="{{student.2}}" type="text" name="name" class="entry__input sign_up__input"></td>
+                </tr>
+                <tr>
+                  <td> <label for="surname"></label> Surname </td>
+                  <td> <input value="{{student.3}}" type="text" name="surname" class="entry__input sign_up__input"></td>
+                </tr>
+                <tr>
+                    <td> <label for="email"></label> Email Address </td>
+                    <td> <input value="{{student.4}}" type="email" name="email" class="entry__input sign_up__input"></td>
+                </tr>
+                <tr>
+                  <td> <label for="dob"></label> DOB </td>
+                  <td> <input value="{{student.8}}" type="date" name="dob" class="entry__input sign_up__input"></td>
+                </tr>
+                <tr>
+                    <td> <label for="gender"></label> Gender </td>
+                    <td> 
+                    <select name="gender" id="gender" class="entry__input sign_up__input">
+                        <!-- need to use selected for the default one of these options below, e.g <option selected> -->
+                        {% for gender in genders %}
+                        <option {% if gender == student.6 %}selected{% endif %} value="{{gender.1}}">{{gender.0}}</option>
+                        {% endfor %}
+                    </select>
+                    </td>
+                </tr>
+                <tr>
+                  <td> <label></label> Reg Class </td>
+                  <td> 
+                    <select name="reg_class" id="reg_class" class="entry__input sign_up__input">
+                        <!-- need to use selected for the default one of these options below, e.g <option selected> -->
+                        {% for reg_class in reg_classes %} <option {% if reg_class == student.7 %}selected{% endif %} value="{{reg_class}}">{{reg_class}}</option>{% endfor %}
+                    </select>
+                    </td>               
+                 </tr>
+              </table>
+              <div class="sign_up__buttons">
+                <a class="btn btn--positive btn--arrow-hover sign_up__button--change-password"> Change Password </a>
+                <div class="sign_up__form_buttons">
+                    <input type="submit" value="Save" class="btn btn--primary btn--arrow-hover sign_up__button">
+                    <a class="btn btn--secondary btn--arrow-hover sign_up__button"> Cancel </a>
+                </div>
+                
+              </div>
+        </form>
+    </div>
+    
+{% endblock content %}
+
+

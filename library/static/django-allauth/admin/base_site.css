@@ -1,0 +1,27 @@
+
+/* * Login page settings here overwrite the login.css */
+body {
+    background-color: #242424 !important;
+}
+
+.login #container {
+    background: inherit !important;
+}
+
+label, .required label, label.required {
+    color: #e1e1e0 !important; 
+}
+
+/* * Site administraion header, make it white */
+.colMS h1 {
+    color: #fff !important;
+}
+
+/* * Make the error messages have a black background */
+.errornote, .errorlist {
+    background: #242424 !important;
+}
+/* * make the padding on the message a bit better so it lines up */
+.errorlist {
+    margin-left: 200px !important;
+}

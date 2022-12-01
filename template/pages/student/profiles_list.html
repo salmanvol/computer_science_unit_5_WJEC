@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profiles List</title>
+    <link rel="stylesheet" href="/template/css/main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header__image">
+            <image src="/template/images/logo.png"></image>
+        </div>
+        <div class="header__buttons">
+            <a class="header__button" href="">Search</a>
+            <a class="header__button" href="">Request Book</a>
+            <a class="header__button" href="">Profile</a>
+            <a class="header__button" href="">Login</a>
+        </div>
+
+    </header>
+
+    <main>
+        <div class="search_section__container">
+            <div class="search__section__filter-container">
+                <form action="" class="filter__form">
+                    <table class="filter__table">
+                        <tr>
+                            <td> <label for="name"></label> Name </td>
+                            <td> <input type="text" name="name" class="entry__input filter__input"></td>
+                        </tr>
+                        <tr>
+                          <td> <label for="age"></label> Age </td>
+                          <td> <input  type="text" name="age" class="entry__input filter__input"></td>
+                        </tr>
+                        <tr>
+                            <td> <label for="year"></label> Year </td>
+                            <td> <input type="number" name="year" class="entry__input filter__input"></td>
+                        </tr>
+                        <tr>
+                          <td> <label for="reg_class"></label> Reg</td>
+                          <td> 
+                            <select name="reg_class" class="entry__input filter__input">
+                                <!-- need to use selected for the default one of these options below, e.g <option selected> -->
+                                <option value="" selected hidden></option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                            </td>           
+                        </tr>
+                      </table>
+                      <div class="filter__buttons">
+                        <div class="filter__form_buttons">
+                            <a class="btn btn--positive btn--arrow-hover filter__button"> Create </a>
+                            <a class="btn btn--primary btn--arrow-hover filter__button"> Search </a>
+                        </div>
+                        
+                      </div>
+                </form>
+            </div>
+            <div class="profile__section__container">
+              <table id="customers">
+                  <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email Address</th>
+                  </tr>
+                  <tr>
+                    <td><a href="">1</a></td>
+                    <td>Maria Anders</td>
+                    <td>student2@email.com</td>
+                  </tr>
+                  <tr>
+                    <td><a href="">2</a></td>
+                    <td>Christina Berglund</td>
+                    <td>student3@email.com</td>
+                  </tr>
+                  <tr>
+                    <td><a href="">3</a></td>
+                    <td>Francisco Chang</td>
+                    <td>student4@email.com</td>
+                  </tr>
+                  <tr>
+                    <td><a href="">3</a></td>
+                    <td>Roland Mendel</td>
+                    <td>student5@email.com</td>
+                  </tr>
+                  <tr>
+                    <td><a href="">3</a></td>
+                    <td>Helen Bennett</td>
+                    <td>student6@email.com</td>
+                  </tr>
+                  <tr>
+                    <td><a href="">3</a></td>
+                    <td>Philip Cramer</td>
+                    <td>student7@email.com</td>
+                  </tr>
+                  <tr>
+                    <td><a href="">3</a></td>
+                    <td>Yoshi Tannamuri</td>
+                    <td>student8@email.com</td>
+                  </tr>
+                  <tr>
+                    <td><a href="">3</a></td>
+                    <td>Giovanni Rovelli</td>
+                    <td>student9@email.com</td>
+                  </tr>
+                  <tr>
+                    <td><a href="">3</a></td>
+                    <td>Simon Crowther</td>
+                    <td>student10@email.com</td>
+                  </tr>
+                  <tr>
+                    <td><a href="">3</a></td>
+                    <td>Marie Bertrand</td>
+                    <td>student11@email.com</td>
+                  </tr>
+              </table>
+          
+              <div class="account_search__table_navigation">
+                  <p>Page 1 of 15</p>
+                  <span><a href="">Prev</a> / <a href="">Next</a></span>
+              </div>
+          </div>
+        </div>
+    </main>
+
+    
+</body>
+</html>

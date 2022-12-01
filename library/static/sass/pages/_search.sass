@@ -1,0 +1,129 @@
+.search_section
+    
+    &__container
+        max-width: 95%
+        padding: 2rem 0
+        margin: auto
+        display: grid
+        grid-auto-flow: column
+        grid-template-columns: 1fr 2fr
+        gap: 3%
+
+    &__title
+        padding-top: 2rem
+        font-weight: normal
+        font-size: 3rem
+
+    &__book-container
+        display: grid
+        // * makes all column width the same no matter length of content
+        grid-template-columns: repeat(4, 23rem)
+        gap: 4rem
+        justify-content: start
+        text-align: center
+
+
+    &__book
+        width: 100%
+        background: #dddddd
+        padding: 1.5rem 0
+        margin: auto
+        border-radius: 10%
+        display: grid
+        gap: 0.5rem
+        white-space: nowrap
+        text-decoration: none
+        color: #000
+        transition: .2s
+
+        &:hover
+            background: #d3d3d3
+
+
+        &-image
+            margin: auto
+            height: 19rem
+            width: 12rem
+
+        &-title
+            padding-top: .5rem
+            font-weight: normal
+            font-size: 2rem
+
+        &-author
+            font-weight: normal
+            font-size: 1.3rem
+
+    &__text
+        padding: 2rem 1rem
+        display: flex
+        justify-content: space-between
+
+
+
+
+.filter 
+    margin-top: 5%
+
+    &__form
+        background: var(--color-grey-light-1)
+        padding: 2rem
+        border-radius: 10%
+
+    &__table
+        font-size: 2rem 
+        font-family: Arial, Helvetica, sans-serif
+        border-collapse: collapse
+        width: 90%
+        margin: 2rem auto
+
+
+        & td
+            padding-bottom: 3rem
+
+    &__ID_label
+        text-align: center
+
+    &__input
+        font-size: 2rem
+        text-align: center
+        margin: auto
+        width: 100%
+
+    &__form_buttons
+        width: 100%
+        display: flex
+        justify-content: start
+
+    &__buttons
+        display: flex
+        width: 90%
+        margin: auto
+        flex-grow: 1
+        justify-content: space-between
+        
+    &__button
+        font-size: 2rem
+        width: 10rem
+
+        &--change-password
+            width: 20rem
+
+    &__header
+        font-size: 8rem
+        text-align: center
+        padding-bottom: 3rem
+
+    &__tag
+        background: var(--color-grey-light-2)
+        width: min-content
+        white-space: nowrap
+
+        &__X
+            text-decoration: none
+            color: var(--color-red)
+
+        &_tag
+            padding-bottom: 0.5rem !important
+            text-decoration: none
+        

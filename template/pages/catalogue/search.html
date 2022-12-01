@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link rel="stylesheet" href="/template/css/main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header__image">
+            <image src="/template/images/logo.png"></image>
+        </div>
+        <div class="header__buttons">
+            <a class="header__button" href="">Search</a>
+            <a class="header__button" href="">Request Book</a>
+            <a class="header__button" href="">Profile</a>
+            <a class="header__button" href="">Login</a>
+        </div>
+
+    </header>
+
+    <main>
+        <div class="search_section__container">
+            <div class="search__section__filter-container">
+                <form action="" class="filter__form">
+                    <table class="filter__table">
+                        <tr>
+                            <td> <label for="name"></label> Name </td>
+                            <td> <input type="text" name="name" class="entry__input filter__input"></td>
+                        </tr>
+                        <tr>
+                          <td> <label for="author"></label> Author </td>
+                          <td> <input  type="text" name="author" class="entry__input filter__input"></td>
+                        </tr>
+                        <tr>
+                            <td> <label for="release_date"></label> Release Date </td>
+                            <td> <input type="number" name="release_date" class="entry__input filter__input"></td>
+                        </tr>
+                        <tr>
+                          <td> <label></label> Genre</td>
+                          <td> 
+                            <select name="Reg Class" class="entry__input filter__input">
+                                <!-- need to use selected for the default one of these options below, e.g <option selected> -->
+                                <option value="" selected hidden></option>
+                                <option value="fiction">Fiction</option>
+                                <option value="non-Fiction">Non-Fiction</option>
+                                <option value="history">History</option>
+                                <option value="children's literature">Children's Literature</option>
+                                <option value="crime">Crime</option>
+                            </select>
+                            </td>           
+                         </tr>
+                        </tr>
+                        <tr>
+                          <td> <label></label> Tags</td>
+                          <td> 
+                            <select name="Reg Class" class="entry__input filter__input">
+                                <!-- need to use selected for the default one of these options below, e.g <option selected> -->
+                                <option value="" selected hidden></option>
+                                <option value="fiction">Best-seller</option>
+                                <option value="non-Fiction">Biology</option>
+                                <option value="history">True Crime</option>
+                                <option value="children's literature">Short Read</option>
+                                <option value="crime">Popular</option>
+                            </select>
+                            </td>    
+                         </tr>
+                         <tr>
+                             <td class="filter__tag_row"></td>
+                             <td class="filter__tag_row"><div class="filter__tag">True Crime <a href="" class="filter__tag__X">X</a></div>       </td>
+                         </tr>
+                         <tr >
+                             <td class="filter__tag_row"></td>
+                             <td class="filter__tag_row"><div class="filter__tag">Best Seller <a href="" class="filter__tag__X">X</a></div>       </td>
+                         </tr>
+                      </table>
+                      <div class="filter__buttons">
+                        <div class="filter__form_buttons">
+                            <a class="btn btn--primary btn--arrow-hover filter__button"> Update </a>
+                            <a class="btn btn--danger btn--arrow-hover filter__button"> Cancel </a>
+                        </div>
+                        
+                      </div>
+                </form>
+            </div>
+            <div class="search_section__">
+                <div class="search_section__book-container">
+                    <a href="" class="search_section__book">
+                        <img src="/template/images/books/gangster_granny.jpg" class="search_section__book-image"></img>
+                        <h3 class="search_section__book-title">Gangster Granny</h3>
+                        <h4 class="search_section__book-author">David Walliams</h4>
+                    </a>
+                    <a href="" class="search_section__book">
+                        <img src="/template/images/books/minecraft_handbook.jpg" class="search_section__book-image"></img>
+                        <h3 class="search_section__book-title">Minecraft Handbook</h3>
+                        <h4 class="search_section__book-author">Mojang</h4>
+                    </a>
+                    <a href="" class="search_section__book">
+                        <img src="\template\images\books\percy_jackson.jpg" class="search_section__book-image"></img>
+                        <h3 class="search_section__book-title">Percy Jackson And...</h3>
+                        <h4 class="search_section__book-author">Rick Riordan</h4>
+                    </a>
+                    <a href="" class="search_section__book">
+                        <img src="/template\images\books\last_olympian.jpg" class="search_section__book-image"></img>
+                        <h3 class="search_section__book-title">The last Olympian</h3>
+                        <h4 class="search_section__book-author">Rick Riordan</h4>
+                    </a>
+                    <a href="" class="search_section__book">
+                        <img src="/template/images/books/gangster_granny.jpg" class="search_section__book-image"></img>
+                        <h3 class="search_section__book-title">Gangster Granny</h3>
+                        <h4 class="search_section__book-author">David Walliams</h4>
+                    </a>
+                    <a href="" class="search_section__book">
+                        <img src="/template\images\books\demon_dentist.jpg" class="search_section__book-image"></img>
+                        <h3 class="search_section__book-title">Demon Dentist</h3>
+                        <h4 class="search_section__book-author">David Walliams</h4>
+                    </a>
+                    <a href="" class="search_section__book">
+                        <img src="/template\images\books\midnight_gang.jpg" class="search_section__book-image"></img>
+                        <h3 class="search_section__book-title">Midnight Gang</h3>
+                        <h4 class="search_section__book-author">David Walliams</h4>
+                    </a>
+                    <a href="" class="search_section__book">
+                        <img src="/template\images\books\ice_monster.jpg" class="search_section__book-image"></img>
+                        <h3 class="search_section__book-title">Ice Monster</h3>
+                        <h4 class="search_section__book-author">David Walliams</h4>
+                    </a>
+                </div>
+                <div class="search_section__text">
+                    <p class="search_section__page-num">Page 1 of 15</p>
+                    <p class="search_section__page-direction"><a href="">Prev</a> / <a href="">Next</a> </p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    
+</body>
+</html>
