@@ -13,8 +13,7 @@ from base.database import genre_options,genders,reg_classes
 from base.settings import STATIC_DIR
 
 import datetime
-from PIL import Image
-from io import BytesIO
+# from PIL import Image
 
 # Create your views here.
 
@@ -29,12 +28,12 @@ def profile(request, profile_num):
     context_dict = {'student_id':student_id,'name':f'{first_name} {surname}', 'email':email, 'dob':dob, 'gender':gender, 'reg_class':reg_class }
 
     # books borrowed
-    c.execute(f"SELECT books.BookTitle, books.BookAuthor, books.BookImage, Borrow.BorrowID, Borrow.BorrowDate, Borrow.ReturnDate FROM Borrow INNER JOIN books ON Borrow.BookID=books.BookID WHERE StudentID={profile_num}")
+    c.execute(f"SELECT Book.BookTitle, Book.BookAuthor, Book.BookImage, Borrow.BorrowID, Borrow.BorrowDate, Borrow.ReturnDate FROM Borrow INNER JOIN Book ON Borrow.BookID=Book.BookID WHERE StudentID={profile_num}")
     borrow_list = c.fetchall()
     context_dict.update({'borrow_list': borrow_list})
 
     # books requested
-    c.execute(f"SELECT BookName, BookAuthor, BookImage, RequestID, RequestDate, RequestStatus FROM Request WHERE StudentID={profile_num}")
+    c.execute(f"SELECT Book.BookTitle, Book.BookAuthor, Book.BookImage, Request.RequestID, Request.RequestDate, Request.RequestStatus FROM Request INNER JOIN Book ON Request.BookID=Book.BookID WHERE StudentID={profile_num}")
     request_list = c.fetchall()
     for request_book_num in range(len(request_list)):
         request_book = list(request_list[request_book_num])
@@ -53,20 +52,21 @@ def profile(request, profile_num):
     return render(request, "profiles/profile.html", context_dict)
 
 def return_book(request,borrow_id):
+    user_id = 1
     conn,c = open_database_link()
     c.execute(f"SELECT BookID FROM borrow where BorrowID={borrow_id}")
     book_id = c.fetchone()[0]
-    c.execute(f"SELECT BookTitle FROM books where BookID={book_id}")
+    c.execute(f"SELECT BookTitle FROM Book where BookID={book_id}")
     book_title = c.fetchone()[0]
 
-    context_dict = {'borrow_id':borrow_id,'book_id':book_id,'book_title':book_title}
+    context_dict = {'borrow_id':borrow_id,'book_id':book_id,'book_title':book_title, 'user_id':user_id}
     return render(request, "profiles/confirm_return_book.html", context_dict)
 
 def return_book_post(request,borrow_id):
     conn,c = open_database_link()
-    c.execute(f"SELECT StudentID, BookID FROM borrow WHERE BorrowID={borrow_id}")
+    c.execute(f"SELECT StudentID, BookID FROM Borrow WHERE BorrowID={borrow_id}")
     student_id, book_id = c.fetchone()
-    c.execute(f"Update books SET BookAvailability='In Shelf' where BookID={book_id}")
+    c.execute(f"Update Book SET BookAvailability='In Shelf' where BookID={book_id}")
     c.execute(f"DELETE FROM borrow WHERE BorrowID={borrow_id}")
     close_database_link(conn)
     context_dict = {'borrow_id':borrow_id}
@@ -116,28 +116,32 @@ def extend_borrow(request,borrow_id):
 def update_request(request,request_id):
     print(request.POST, request.FILES)
     conn, c = open_database_link()
-    c.execute(f"SELECT StudentID, BookName,BookAuthor,BookYear,BookGenre,BookImage FROM Request WHERE RequestID={request_id}")
-    student_id, name,author,year,genre,image_name = c.fetchone()
-
-    if request.method == 'POST':
-        name,author,year,genre = request.POST['name'],request.POST['author'],request.POST['year'], request.POST['genre']
-        image_url = get_image_url(name)
-        try:
-            upload = request.FILES['image_name']
-            image = Image.open(upload)
-            # for PNG images discarding the alpha channel and fill it with some color
-            if image.mode in ('RGBA', 'LA'):
-                background = Image.new(image.mode[:-1], image.size, '#fff')
-                background.paste(image, image.split()[-1])
-                image = background
-            rgb_im = image.convert("RGB")
-            rgb_im.save(STATIC_DIR + image_url)
-        except MultiValueDictKeyError:
-            pass
-
-        c.execute(f"UPDATE Request SET BookName='{name}', BookAuthor='{author}', BookYear={year}, BookGenre='{genre}', BookImage='{image_name}' WHERE RequestID={request_id}")
-        close_database_link(conn)
+    c.execute(f"SELECT Request.StudentID, Request.RequestStatus, Book.BookTitle, Book.BookAuthor, Book.BookYear, Book.BookGenre, Book.BookImage FROM Request INNER JOIN Book ON Request.BookID=Book.BookID WHERE RequestID={request_id}")
+    student_id, request_status, name,author,year,genre,image_name = c.fetchone()
+    print(c.fetchone())
+    if request_status != 'Pending Confirmation':
         return HttpResponseRedirect(f'/profiles/{student_id}')
+
+    # ! NEED TO UPDATE THE SQL REQUEST WHEN ON BIG PC
+    # if request.method == 'POST':
+    #     name,author,year,genre = request.POST['name'],request.POST['author'],request.POST['year'], request.POST['genre']
+    #     image_url = get_image_url(name)
+    #     try:
+    #         upload = request.FILES['image_name']
+    #         image = Image.open(upload)
+    #         # for PNG images discarding the alpha channel and fill it with some color
+    #         if image.mode in ('RGBA', 'LA'):
+    #             background = Image.new(image.mode[:-1], image.size, '#fff')
+    #             background.paste(image, image.split()[-1])
+    #             image = background
+    #         rgb_im = image.convert("RGB")
+    #         rgb_im.save(STATIC_DIR + image_url)
+    #     except MultiValueDictKeyError:
+    #         pass
+
+        # c.execute(f"UPDATE Request SET BookName='{name}', BookAuthor='{author}', BookYear={year}, BookGenre='{genre}', BookImage='{image_name}' WHERE RequestID={request_id}")
+        # close_database_link(conn)
+        # return HttpResponseRedirect(f'/profiles/{student_id}')
 
 
         # fss = FileSystemStorage()
@@ -148,8 +152,10 @@ def update_request(request,request_id):
     return render(request, "profiles/update_request.html", context_dict)
 
 
-# setup return page
-# make return page work
-# setup edit account details page, and make it update the DB
-# setup the cancel and extend buttons
-#
+def cancel_request(request, request_id):
+    user_id = 1
+    conn, c = open_database_link()
+    c.execute(f"DELETE FROM Request WHERE RequestID={request_id}")
+
+    close_database_link(conn)
+    return HttpResponseRedirect(f"/profiles/{user_id}")

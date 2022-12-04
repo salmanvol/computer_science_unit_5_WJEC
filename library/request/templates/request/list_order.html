@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Requests{% endblock title %}
+
+{% block content %}
+    <main class="profile__container order-list__container">
+
+        <div class="order-list__header__container">
+            <h1 class="profile__header order-list__header">All Requested Books</h1>
+            <a href="{% url 'request:create_order' %}" class="btn btn--primary order-list__button">Create</a>
+        </div>
+        <div class="profile__book__container order-list__book__container">
+            {% for request in request_list %}
+            <div class="profile__book profile__book">
+                <img src="{% static 'media/images/' %}{{request.2}}.jpg" class="profile__book__image"></img>
+                <div class="profile__book__text">
+                    <div class="profile__book__details">
+                        <p class="profile__book__title">{{request.0}}</p>
+                        <p class="profile__book__author">{{request.1}}</p>
+                    </div>
+                    <div class="profile__book__dates">
+                        <p class="profile__book__date">Date Requested: {{request.3}}</p>
+                        <p class="profile__book__date order-list__book__status  order-list__book__status--accepted">Status: {{request.4}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+{% endblock content %}

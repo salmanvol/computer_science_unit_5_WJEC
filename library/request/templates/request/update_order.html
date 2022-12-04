@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Update{% endblock title %}
+{% block content %}
+    <div class="sign_up">
+        <h1 class="sign_up__header">Update Book Order</h1>
+        <form action="" class="sign_up__form">
+            <table class="sign_up__table">
+                <tr>
+                    <td> <label for="title"></label>Title</td>
+                    <td> <input value="{{title}}" type="text" name="title" class="entry__input sign_up__input"></td>
+                </tr>
+                <tr>
+                  <td> <label for="author"></label>Author</td>
+                  <td> <input value="{{author}}" type="text" name="author" class="entry__input sign_up__input"></td>
+                </tr>
+                <tr>
+                    <td> <label for="release_year"></label>Release Year</td>
+                    <td> <input value="{{year}}" type="number" name="release_year" class="entry__input sign_up__input"></td>
+                </tr>
+                <tr>
+                  <td> <label></label>Genre</td>
+                  <td> 
+                    <select name="genre" class="entry__input sign_up__input">
+                        {% for genre in genre_options %}
+                        <option value="{{genre.1}}">{{genre.0}}</option>
+                        {% endfor %}
+                    </select>
+                    </td>           
+                </tr>
+                <tr>
+                  <td> <label></label>Availibilty</td>
+                  <td> 
+                    <select name="availibility" class="entry__input sign_up__input">
+                        <!-- need to use selected for the default one of these options below, e.g <option selected> -->
+                        <option value="in_shelves">In Shelves</option>
+                        <option value="borrowed">Borrowed</option>
+                        <option value="overdue">Overdue/Missing</option>
+                        <option value="unavailable">Unavailable</option>
+                    </select>
+                    </td>           
+                 </tr>
+                 <tr>
+                    <td> <label></label>Genre</td>
+                    <td> 
+                    <select name="reg_class" class="entry__input sign_up__input">
+                        {% for reg_class in reg_classes %}
+                        <option value="{{reg_class}}">{{reg_class}}</option>
+                        {% endfor %}
+                    </select>
+                    </td> 
+                </tr>
+                 <tr>
+                    <td> <label></label>Tags</td>
+                    <td> 
+                      <select name="Reg Class" class="entry__input filter__input">
+                          <!-- need to use selected for the default one of these options below, e.g <option selected> -->
+                          <option value="" selected hidden></option>
+                          <option value="fiction">Best-seller</option>
+                          <option value="non-Fiction">Biology</option>
+                          <option value="history">True Crime</option>
+                          <option value="children's literature">Short Read</option>
+                          <option value="crime">Popular</option>
+                      </select>
+                      </td>    
+                   </tr>
+                   <tr>
+                       <td class="filter__tag_row"></td>
+                       <td class="filter__tag_row"><div class="filter__tag">True Crime <a href="" class="filter__tag__X">X</a></div>       </td>
+                   </tr>
+                   <tr >
+                       <td class="filter__tag_row"></td>
+                       <td class="filter__tag_row"><div class="filter__tag">Best Seller <a href="" class="filter__tag__X">X</a></div>       </td>
+                   </tr>
+              </table>
+              <div class="sign_up__buttons">
+                <div class="sign_up__form_buttons">
+                    <a class="btn btn--positive btn--arrow-hover sign_up__button">Update</a>
+                    <a class="btn btn--primary btn--arrow-hover sign_up__button">Cancel</a>
+                </div>
+                
+              </div>
+        </form>
+    </div>
+{% endblock content %}

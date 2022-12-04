@@ -9,6 +9,7 @@ urlpatterns = [
     path('return_book_post/<borrow_id>/', views.return_book_post, name="return_book_post"),
     path('edit_account/<student_id>/', views.edit_account, name="edit_account"),
     path('extend_borrow/<borrow_id>/', views.extend_borrow, name="extend_borrow"),
-    path('update_request/<request_id>/', views.update_request, name="update_request")
+    path('update_request/<request_id>/', views.update_request, name="update_request"),
+    path('cancel_request/<request_id>/', views.cancel_request, name="cancel_request"),
 
 ]

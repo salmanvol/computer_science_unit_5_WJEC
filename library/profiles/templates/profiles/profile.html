@@ -65,7 +65,7 @@
                 </div>
                 <div class="profile__book__buttons">
                     <a href="{% url 'profiles:update_request' request_id=request.3 %}" class="btn btn--orange profile__book__button--{{request.6}}">Update</a>
-                    <a href="#" class="btn btn--danger profile__book__button--{{request.6}}">Cancel</a>
+                    <button onclick="ConfirmCancel('{% url 'profiles:cancel_request' request_id=request.3 %}')"  class="btn btn--danger btn--button profile__book__button--{{request.6}}" >Cancel</button>
                 </div>
             </div>
             {% endfor %}
@@ -82,10 +82,15 @@
       let text = "Are you sure you would like to Extend the borrow time for this book?";
       if (confirm(text) == true) {
         window.location.href = url_link;
-      } else {
-        text = "You canceled!";
       }
-      document.getElementById("demo").innerHTML = text;
     }
-    </script>
+</script>
+<script>
+    function ConfirmCancel(url_link) {
+      let text = "Are you sure you would like to cancel this Request?";
+      if (confirm(text) == true) {
+        window.location.href = url_link;
+      }
+    }
+</script>
 {% endblock %}

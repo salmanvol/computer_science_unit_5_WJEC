@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 # third party plugins
-from base.database import open_database_link,close_database_link, get_image_url,genre_options, add_months
+from base.database import open_database_link,close_database_link, get_image_url,genre_options, get_pretty_genre_value, add_months
 import datetime
 
 # Create your views here.
@@ -26,7 +26,6 @@ def navigation_button_url(full_url,page_num, change_increment):
 
 # ? Views
 def search(request, page_num=1):
-    print(request.build_absolute_uri())
     results_parsed = []
     page_num = int(page_num) 
     # get the upper and lower bounds of what range of books we will have
@@ -35,15 +34,12 @@ def search(request, page_num=1):
         print(request.GET)
         title = request.GET['title']
         conn, c = open_database_link()
-        filter_query = "SELECT * FROM books WHERE"
-        first_condition = True
+        filter_query = "SELECT * FROM Book WHERE BookIsRequest=0"
         for column in search_constructor:
             print(column)
-            if request.GET[column[0]] != "" and first_condition:
-                filter_query = filter_query + " " +  f"{column[1]} LIKE '%{request.GET[column[0]]}%'"
-                first_condition = False
-            elif request.GET[column[0]] != "":
+            if request.GET[column[0]] != "":
                 filter_query = filter_query +" AND " +  f"{column[1]} LIKE '%{request.GET[column[0]]}%'"
+        print(filter_query)
         c.execute(filter_query)
         results = c.fetchall()
         close_database_link(conn)
@@ -59,7 +55,7 @@ def search(request, page_num=1):
     except Exception as e:
         print('error in search filtering:',e)
         conn, c = open_database_link()
-        c.execute(f"SELECT * FROM books")
+        c.execute(f"SELECT * FROM Book WHERE BookIsRequest=0")
         results = c.fetchall()
         close_database_link(conn)
         books_len = len(results) # get the total number of books
@@ -87,12 +83,13 @@ def search(request, page_num=1):
 
 def detail(request, book_num):
     conn, c = open_database_link()
-    c.execute(f"SELECT * FROM books WHERE BookID={book_num}")
+    c.execute(f"SELECT * FROM Book WHERE BookID={book_num}")
     book = c.fetchone()
     close_database_link(conn)
 
-    id, title, author, release_date, genre, image_name, availability, location = book
+    id, title, author, release_date, genre, image_name, availability, location, is_request = book
     image_url = get_image_url(image_name)
+    genre_pretty_value = get_pretty_genre_value(genre_slug=genre)
 
     borrow_button_enabled__css= "True"
     if 'In Shelf' in availability: availability = availability + ': ' + location
@@ -104,7 +101,7 @@ def detail(request, book_num):
         'title':title,
         'author':author,
         'release_date': release_date,
-        'genre': genre,
+        'genre': genre_pretty_value,
         'availability':availability,
         'availability_css':availability_css,
         'image_url': image_url,
@@ -117,14 +114,14 @@ def detail(request, book_num):
 def borrow_post(request, book_id):
     user_id = 1
     conn, c = open_database_link()
-    c.execute(f"SELECT BookAvailability FROM Books WHERE BookID={book_id}")
+    c.execute(f"SELECT BookAvailability FROM Book WHERE BookID={book_id}")
     availability = c.fetchone()[0]
     if availability == 'In Shelf':
         borrow_date = datetime.datetime.strftime(datetime.datetime.now(), "%d/%m/%Y")
         return_date = datetime.datetime.strftime(add_months(datetime.datetime.now().date(),1), "%d/%m/%Y")
         print(return_date)
         c.execute(f"INSERT INTO Borrow VALUES (NULL, {user_id}, {book_id}, '{borrow_date}', '{return_date}')")
-        c.execute(f"UPDATE Books SET BookAvailability='Borrrowed' WHERE BookID={book_id}")
+        c.execute(f"UPDATE Book SET BookAvailability='Borrrowed' WHERE BookID={book_id}")
         close_database_link(conn)
         return HttpResponseRedirect(f"/profiles/{user_id}")
     return HttpResponseRedirect(f"/catalogue/detail/{book_id}")

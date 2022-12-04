@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Order List{% endblock title %}
+{% block content %}
+    <main class="profile__container order-list__container">
+
+        <div class="order-list__header__container">
+            <h1 class="profile__header order-list__header">All Requested Books (Teacher)</h1>
+            <a href="{% url 'request:create_order' %}" class="btn btn--primary order-list__button">Create</a>
+        </div>
+        <div class="profile__book__container order-list__book__container">
+            {% for request in request_list %}
+            <div class="profile__book profile__book">
+                <img src="{% static 'media/images/' %}{{request.3}}.jpg" class="profile__book__image"></img>
+                <div class="profile__book__text">
+                    <div class="profile__book__details">
+                        <p class="profile__book__title">{{request.1}}</p>
+                        <p class="profile__book__author">{{request.2}}</p>
+                    </div>
+                    <div class="profile__book__dates">
+                        <p class="profile__book__date">Date Requested: {{request.4}}</p>
+                        <p class="profile__book__date order-list__book__status  order-list__book__status--{% if request.5 == 'Accepted' %}accepted{% elif request.5 == 'Rejected' %}rejected{% else %}pending{% endif %}">Status: {{request.5}}</p>
+                    </div>
+                </div>
+                <div class="profile__book__buttons">
+                    {% if request.5 == 'Accepted' %}
+                    <a href="{% url 'request:update_order' order_id=request.0 %}" class="btn btn--primary">Update</a>
+                    {% else %}
+                    <a href="{% url 'request:approve_order' order_id=request.0 %}" class="btn btn--positive">Approve</a>
+                    {% endif %}
+
+                    {% if request.5 == 'Rejected' %}
+                    <a href="{% url 'request:reject_order' order_id=request.0 %}" class="btn btn--link--inactive">Reject</a>   
+                    {% else %}
+                    <a href="{% url 'request:reject_order' order_id=request.0 %}" class="btn btn--danger">Reject</a>
+                    {% endif %}
+
+                </div>
+            </div>
+            {% endfor %}
+            {% for request in request_list_accepted %}
+            <div class="profile__book">
+                <img src="{% static 'media/images/' %}{{request.2}}.jpg" class="profile__book__image"></img>
+                <div class="profile__book__text">
+                    <div class="profile__book__details">
+                        <p class="profile__book__title">{{request.0}}</p>
+                        <p class="profile__book__author">{{request.1}}</p>
+                    </div>
+                    <div class="profile__book__dates">
+                        <p class="profile__book__date">Date Accepted: {{request.2}}</p>
+                        <p class="profile__book__date order-list__book__status  order-list__book__status--accepted">Status: Accepted</p>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+        
+        
+
+        
+    </main>
+{% endblock content %}

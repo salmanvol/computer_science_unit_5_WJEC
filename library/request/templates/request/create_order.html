@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Create Order{% endblock title %}
+{% block content %}
+    <div class="sign_up">
+        <h1 class="sign_up__header">Create New Order</h1>
+        <form method="POST" class="sign_up__form">
+            {% csrf_token %}
+            <table class="sign_up__table">
+                <tr>
+                    <td> <label for="title"></label> Title </td>
+                    <td> <input required type="text" name="title" class="entry__input sign_up__input"></td>
+                </tr>
+                <tr>
+                  <td> <label for="author"></label> Author </td>
+                  <td> <input required type="text" name="author" class="entry__input sign_up__input"></td>
+                </tr>
+                <tr>
+                    <td> <label for="year"></label> Release Year </td>
+                    <td> <input required type="number" name="year" class="entry__input sign_up__input"></td>
+                </tr>
+                <tr>
+                  <td> <label></label> Genre</td>
+                  <td> 
+                    <select required name="genre" class="entry__input sign_up__input">
+                        <option disabled selected value>Select An Option</option>
+                        {% for option in genre_options %}
+                        <option value="{{option.1}}">{{option.0}}</option>
+                        {% endfor %}
+                    </select>
+                    </td>           
+                 </tr>
+                 <tr>
+                    <td> <label for="image"></label> Image </td>
+                    <td> 
+                        <div><input type='file' id="upload-image"></div>
+                    </td>
+                </tr>
+              </table>
+              <div class="sign_up__buttons">
+                <div class="sign_up__form_buttons">
+                    <input type="submit" class="btn btn--primary btn--arrow-hover sign_up__button btn--button" value="Create">
+                    <a href="{% url 'request:order_list' %}" class="btn btn--danger btn--arrow-hover sign_up__button"> Cancel </a>
+                </div>
+                
+              </div>
+        </form>
+    </div>
+{% endblock content %}

@@ -24,6 +24,7 @@ urlpatterns = [
 
     path('profiles/', include('profiles.urls', namespace="profiles")),
     path('catalogue/', include('catalogue.urls', namespace="catalogue")),
+    path('request/', include('request.urls', namespace="request")),
 
 ]
 
