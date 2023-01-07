@@ -28,7 +28,7 @@ def profile(request, profile_num):
     context_dict = {'student_id':student_id,'name':f'{first_name} {surname}', 'email':email, 'dob':dob, 'gender':gender, 'reg_class':reg_class }
 
     # books borrowed
-    c.execute(f"SELECT Book.BookTitle, Book.BookAuthor, Book.BookImage, Borrow.BorrowID, Borrow.BorrowDate, Borrow.ReturnDate FROM Borrow INNER JOIN Book ON Borrow.BookID=Book.BookID WHERE StudentID={profile_num}")
+    c.execute(f"SELECT Book.BookTitle, Book.BookAuthor, Book.BookImage, Borrow.BorrowID, Borrow.BorrowDate, Borrow.ReturnDate, Borrow.IsReturned FROM Borrow INNER JOIN Book ON Borrow.BookID=Book.BookID WHERE StudentID={profile_num}")
     borrow_list = c.fetchall()
     context_dict.update({'borrow_list': borrow_list})
 
@@ -59,6 +59,8 @@ def return_book(request,borrow_id):
     c.execute(f"SELECT BookTitle FROM Book where BookID={book_id}")
     book_title = c.fetchone()[0]
 
+    close_database_link(conn)
+
     context_dict = {'borrow_id':borrow_id,'book_id':book_id,'book_title':book_title, 'user_id':user_id}
     return render(request, "profiles/confirm_return_book.html", context_dict)
 
@@ -67,10 +69,10 @@ def return_book_post(request,borrow_id):
     c.execute(f"SELECT StudentID, BookID FROM Borrow WHERE BorrowID={borrow_id}")
     student_id, book_id = c.fetchone()
     c.execute(f"Update Book SET BookAvailability='In Shelf' where BookID={book_id}")
-    c.execute(f"DELETE FROM borrow WHERE BorrowID={borrow_id}")
+    c.execute(f"Update borrow SET IsReturned=1 WHERE BorrowID={borrow_id}")
     close_database_link(conn)
     context_dict = {'borrow_id':borrow_id}
-    return HttpResponseRedirect(f'/profiles/{student_id}')
+    return HttpResponseRedirect(f'/profiles/{student_id}', context_dict)
 
 
 def edit_account(request, student_id):

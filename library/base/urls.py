@@ -22,9 +22,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('auth/', include('allauth.urls')),
 
+    path('user/', include('user.urls', namespace="user")),
     path('profiles/', include('profiles.urls', namespace="profiles")),
     path('catalogue/', include('catalogue.urls', namespace="catalogue")),
     path('request/', include('request.urls', namespace="request")),
+    path('', include('main.urls', namespace="main")),
 
 ]
 

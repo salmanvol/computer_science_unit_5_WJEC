@@ -35,13 +35,20 @@
                     </div>
                     <div class="profile__book__dates">
                         <p class="profile__book__date">Date Borrowed: {{borrow.4}}</p>
-                        <p class="profile__book__date">Date Return: {{borrow.5}}</p>
+                        <p class="profile__book__date">{% if borrow.6 %}Date Returned{% else %}Date To Return{% endif %}: {{borrow.5}}</p>
                     </div>
                 </div>
+
                 <div class="profile__book__buttons">
+                    {% if borrow.6 %}
+                    <a class="btn btn--link--inactive">Return</a>
+                    <button  class="btn btn--secondary btn--button btn--link--inactive" >Extend</button>
+                    {% else %}
                     <a href="{% url 'profiles:return_book' borrow_id=borrow.3 %}" class="btn btn--primary">Return</a>
                     <button onclick="ConfirmExtend('{% url 'profiles:extend_borrow' borrow_id=borrow.3 %}')"  class="btn btn--secondary btn--button" >Extend</button>
+                    {% endif %}
                 </div>
+
             </div>
             {% endfor %}
         </div>

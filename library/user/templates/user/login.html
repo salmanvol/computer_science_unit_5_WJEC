@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+    <div class="login">
+        <h1 class="header--main login__header">User Login</h1>
+        <form method="POST" class="entry">
+            {% csrf_token %}
+            <div class="entry__box">
+                <div class="entry__label">Email Address</div>
+                <input type="email" name="email" class="entry__input">
+            </div>
+            <div class="entry__box">
+                <div class="entry__label">Password</div>
+                <input type="password" name="password" class="entry__input">
+            </div>
+            <button class="btn btn--primary btn--arrow-hover" type="submit"><span>Login</span></button>
+        </form>
+
+        <div class="login__sign_up_link"><a href="">Sign up</a></div>    
+
+    </div>
+
+{% endblock content %}

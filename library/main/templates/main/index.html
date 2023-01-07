@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Index{% endblock title %}
+
+{% block content %}
+    <main>
+        <div class="index_section__container">
+            <h1 class="index_section__title">Books Recommended for you</h1>
+            <div class="index_section__book-container">
+                {% for book in user_recommendations %}
+                <a href="{% url 'catalogue:detail' book_num=book.3 %}" class="index_section__book">
+                    <img src="{% static 'media/images/' %}{{book.2}}.jpg" class="index_section__book-image"></img>
+                    <h3 class="index_section__book-title">{{book.0|truncatechars:22}}</h3>
+                    <h4 class="index_section__book-author">{{book.1}}</h4>
+                </a>
+                {% endfor %}
+            </div>
+            <h1 class="index_section__title">Because you read {{random_book}}</h1>
+            <div class="index_section__book-container">
+                {% for book in content_recommendations %}
+                <a href="{% url 'catalogue:detail' book_num=book.3 %}" class="index_section__book">
+                    <img src="{% static 'media/images/' %}{{book.2}}.jpg" class="index_section__book-image"></img>
+                    <h3 class="index_section__book-title">{{book.0|truncatechars:22}}</h3>
+                    <h4 class="index_section__book-author">{{book.1}}</h4>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+
+{% endblock content %}>

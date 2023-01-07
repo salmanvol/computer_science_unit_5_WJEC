@@ -120,7 +120,7 @@ def borrow_post(request, book_id):
         borrow_date = datetime.datetime.strftime(datetime.datetime.now(), "%d/%m/%Y")
         return_date = datetime.datetime.strftime(add_months(datetime.datetime.now().date(),1), "%d/%m/%Y")
         print(return_date)
-        c.execute(f"INSERT INTO Borrow VALUES (NULL, {user_id}, {book_id}, '{borrow_date}', '{return_date}')")
+        c.execute(f"INSERT INTO Borrow VALUES (NULL, {user_id}, {book_id}, '{borrow_date}', '{return_date}',0)")
         c.execute(f"UPDATE Book SET BookAvailability='Borrrowed' WHERE BookID={book_id}")
         close_database_link(conn)
         return HttpResponseRedirect(f"/profiles/{user_id}")

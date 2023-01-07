@@ -38,7 +38,7 @@ genders = (
     ('Female','female'),
 )
 
-reg_classes = ('7A','7B','7C','8A','8B','8C','9A','9B','9C','10A','10B','10C','11A','11B','11C','12A','12B','12C',)
+reg_classes = ('7A','7B','7C','8A','8B','8C','9A','9B','9C','10A','10B','10C','11A','11B','11C','12A','12B','12C', '13A', '13B')
 
 def open_database_link():
     conn = sqlite3.connect('books.db')
@@ -70,7 +70,7 @@ def convert_date(date):
     raise('not a valid entry')
 
 
-def get_pretty_genre_value(genre_slug):
+def get_pretty_genre_value(genre_slug): # ? NEED TO CONVERT THIS
     for genre_display, genre_value in genre_options:
         if genre_value == genre_slug:
             return genre_display
@@ -194,43 +194,81 @@ try:
         BookID integer,
         BorrowDate text,
         ReturnDate text,
+        IsReturned integer,
         FOREIGN KEY(StudentID) REFERENCES Student(StudentID),
         FOREIGN KEY(BookID) REFERENCES Book(BookID) 
     )""")
 except Exception as e:
     print(e)
-# c.execute("INSERT INTO Book VALUES (NULL, 'Demon Dentist', 'David Walliams', 2013, 'children', 'demon_dentist','In Shelf', 'A12', 0)")
-# c.execute("INSERT INTO Book VALUES (NULL, 'Gangster Granny', 'David Walliams', 2007, 'children', 'gangster_granny', 'Borrowed', 'A14', 0)")
-# c.execute("INSERT INTO Book VALUES (NULL, 'Gangster Granny', 'David Walliams', 2007, 'children', 'gangster_granny', 'Borrowed', 'A14', 0)")
-# c.execute("INSERT INTO Book VALUES (NULL, 'Minecraft Handbook', 'Mojang', 2011, 'short_stories', 'minecraft_handbook', 'Overdue', 'C5', 0)")
-# c.execute("INSERT INTO Book VALUES (NULL, 'Percy Jackson And The Lighting Thief', 'Rick Riordan', 2020, 'action_and_adventure', 'percy_jackson_and_the_lighting_thief', 'Unavailable', 'D3', 0)")
-# c.execute("INSERT INTO Book VALUES (NULL, 'The Last Olympian', 'Rick Riordan', 2021, 'Non-Fiction', 'the_last_olympian', 'In Shelf', 'A2', 0)")
-# c.execute("INSERT INTO Book VALUES (NULL, 'Ice Monster', 'David Walliams', 2005, 'children', 'ice_monster', 'Borrowed', 'C4', 0)")
-# c.execute("INSERT INTO Book VALUES (NULL, 'Midnight Gang', 'David Walliams', 1995, 'children', 'midnight_gang', 'Unavailable', 'A5', 0)")
 
-# c.execute("INSERT INTO Book VALUES (NULL, 'Midnight Gang', 'David Walliams', 1995, 'children', 'midnight_gang', 'Unavailable', 'A5', 0)")
-# c.execute("INSERT INTO Book VALUES (NULL, 'Midnight Gang', 'David Walliams', 1995, 'children', 'midnight_gang', 'Unavailable', 'A5', 0)")
-# c.execute("INSERT INTO Book VALUES (NULL, 'Midnight Gang', 'David Walliams', 1995, 'children', 'midnight_gang', 'Unavailable', 'A5', 0)")
-# c.execute("INSERT INTO Book VALUES (NULL, 'Midnight Gang', 'David Walliams', 1995, 'children', 'midnight_gang', 'Unavailable', 'A5', 0)")
-# c.execute("INSERT INTO Book VALUES (NULL, 'Midnight Gang', 'David Walliams', 1995, 'children', 'midnight_gang', 'Unavailable', 'A5', 0)")
-# c.execute("INSERT INTO Book VALUES (NULL, 'Midnight Gang', 'David Walliams', 1995, 'children', 'midnight_gang', 'Unavailable', 'A5', 0)")
-# c.execute("INSERT INTO Book VALUES (NULL, 'Midnight Gang', 'David Walliams', 1995, 'children', 'midnight_gang', 'Unavailable', 'A5', 0)")
+# try:
+#     c.execute("INSERT INTO Book VALUES (NULL, 'Demon Dentist', 'David Walliams', 2013, 'children', 'demon_dentist','In Shelf', 'A12', 0)")
+#     c.execute("INSERT INTO Book VALUES (NULL, 'Gangster Granny', 'David Walliams', 2007, 'children', 'gangster_granny', 'Borrowed', 'A14', 0)")
+#     c.execute("INSERT INTO Book VALUES (NULL, 'Gangster Granny', 'David Walliams', 2007, 'children', 'gangster_granny', 'Borrowed', 'A14', 0)")
+#     c.execute("INSERT INTO Book VALUES (NULL, 'Minecraft Handbook', 'Mojang', 2011, 'short_stories', 'minecraft_handbook', 'Overdue', 'C5', 0)")
+#     c.execute("INSERT INTO Book VALUES (NULL, 'Percy Jackson And The Lighting Thief', 'Rick Riordan', 2020, 'action_and_adventure', 'percy_jackson_and_the_lighting_thief', 'Unavailable', 'D3', 0)")
+#     c.execute("INSERT INTO Book VALUES (NULL, 'The Last Olympian', 'Rick Riordan', 2021, 'Non-Fiction', 'the_last_olympian', 'In Shelf', 'A2', 0)")
+#     c.execute("INSERT INTO Book VALUES (NULL, 'Ice Monster', 'David Walliams', 2005, 'children', 'ice_monster', 'Borrowed', 'C4', 0)")
+#     c.execute("INSERT INTO Book VALUES (NULL, 'Midnight Gang', 'David Walliams', 1995, 'children', 'midnight_gang', 'Unavailable', 'A5', 0)")
 
-# print(insert__password('John Pinedia','johpin@school.com','password'))
-# print(password_fetch(1))
-# c.execute("INSERT INTO Student VALUES (NULL, 1, 'John', 'Pinedia', 'johpin@school.com', '01/06/1999', 'male', '12C')")
-# c.execute("INSERT INTO Borrow VALUES (NULL, 1, 4, '21/11/2022', '27/12/2022')")
-# c.execute("INSERT INTO Borrow VALUES (NULL, 1, 5, '11/11/2022', '11/12/2022')")
-# c.execute("INSERT INTO Request VALUES (NULL, 1, 16, '11/11/2022', NULL, 'Pending Confirmation')")
-# c.execute("INSERT INTO Request VALUES (NULL, 1, 17, '9/6/2022', '21/7/20222', 'Ready')")
-# c.execute("INSERT INTO Request VALUES (NULL, 1, 18, '10/9/2022', '21/10/2022', 'Rejected')")
-# c.execute("INSERT INTO Request VALUES (NULL, 1, 19, '21/8/2022', '21/8/2022', 'Accepted')")
-# c.execute("INSERT INTO Request VALUES (NULL, 1, 20, '15/9/2022', '15/9/2022', 'Accepted')")
-# c.execute("INSERT INTO Book VALUES (NULL, 'Midnight Gang', 'David Walliams', 1995, 'children', 'midnight_gang', NULL, NULL, 1)")
-# c.execute("INSERT INTO Book VALUES (NULL, 'The Last Olympian', 'Rick Riordan', 2021, 'Non-Fiction Story', 'the_last_olympian', 'In Shelf', 'A2', 1)")
-# c.execute("INSERT INTO Book VALUES (NULL, 'Gangster Granny', 'David Walliams', 2007, 'children', 'gangster_granny', NULL, NULL, 1)")
-# c.execute("INSERT INTO Book VALUES (NULL, 'Ice Monster', 'David Walliams', 2005, 'action_and_adventure', 'ice_monster', NULL, NULL, 1)")
-# c.execute("INSERT INTO Book VALUES (NULL, 'Percy Jackson And The Lighting Thief', 'Rick Riordan', 2020, 'action_and_adventure', 'percy_jackson_and_the_lighting_thief', 'Unavailable', 'D3', 1)")
+#     print(insert__password('John Pinedia','johpin@school.com','password'))
+#     print(password_fetch(1))
+#     c.execute("INSERT INTO Student VALUES (NULL, 1, 'John', 'Pinedia', 'johpin@school.com', '01/06/1999', 'male', '12C')")
+#     c.execute("INSERT INTO Borrow VALUES (NULL, 1, 4, '21/11/2022', '27/12/2022', 0)")
+#     c.execute("INSERT INTO Borrow VALUES (NULL, 1, 5, '11/11/2022', '11/12/2022', 0)")
+#     c.execute("INSERT INTO Request VALUES (NULL, 1, 16, '11/11/2022', NULL, 'Pending Confirmation')")
+#     c.execute("INSERT INTO Request VALUES (NULL, 1, 17, '9/6/2022', '21/7/20222', 'Ready')")
+#     c.execute("INSERT INTO Request VALUES (NULL, 1, 18, '10/9/2022', '21/10/2022', 'Rejected')")
+#     c.execute("INSERT INTO Request VALUES (NULL, 1, 19, '21/8/2022', '21/8/2022', 'Accepted')")
+#     c.execute("INSERT INTO Request VALUES (NULL, 1, 20, '15/9/2022', '15/9/2022', 'Accepted')")
+#     c.execute("INSERT INTO Book VALUES (NULL, 'Midnight Gang', 'David Walliams', 1995, 'children', 'midnight_gang', NULL, NULL, 1)")
+#     c.execute("INSERT INTO Book VALUES (NULL, 'The Last Olympian', 'Rick Riordan', 2021, 'Non-Fiction Story', 'the_last_olympian', 'In Shelf', 'A2', 1)")
+#     c.execute("INSERT INTO Book VALUES (NULL, 'Gangster Granny', 'David Walliams', 2007, 'children', 'gangster_granny', NULL, NULL, 1)")
+#     c.execute("INSERT INTO Book VALUES (NULL, 'Ice Monster', 'David Walliams', 2005, 'action_and_adventure', 'ice_monster', NULL, NULL, 1)")
+#     c.execute("INSERT INTO Book VALUES (NULL, 'Percy Jackson And The Lighting Thief', 'Rick Riordan', 2020, 'action_and_adventure', 'percy_jackson_and_the_lighting_thief', 'Unavailable', 'D3', 1)")
 
+#     import pandas as pd
+#     import time
+#     from base.settings import BASE_DIR
+#     print(BASE_DIR)
+#     df = pd.read_csv(BASE_DIR + '/base/books.csv')
+
+
+#     df = df.drop('Publisher', axis=1).drop('Height', axis=1)
+#     df = df.drop_duplicates()
+#     df = df.dropna(axis=0)
+
+#     print(len(df), '\n', df.head())
+#     for index, row in df.iterrows():
+#         title, author, genre = row
+#         print(index, row)
+#         print()
+#         image_name = slug_image_name(title)
+#         c.execute(f'INSERT INTO Book VALUES (NULL, "{title}", "{author}", 1995, "{genre}", "the_last_olympian", "In Shelf", "A1", 0)')
+#     print(df.head())
+
+#     student_df = pd.read_csv(BASE_DIR + "/base/mock_students.csv", index_col=0)
+
+#     print(student_df)
+
+#     for index, row in student_df.iterrows():
+#         print(index, row)
+#         print()    
+#         name,surname,email,dob,gender,reg = row
+
+#         c.execute(f'INSERT INTO Student VALUES (NULL,1, "{name}", "{surname}", "{email}", "{dob}", "{gender}", "{reg}")')
+
+#     borrow_df = pd.read_csv(BASE_DIR + "/base/borrows.csv")
+#     print(borrow_df)
+
+#     for index, row in borrow_df.iterrows():
+#         student_id, book_id = row
+#         print(index, row)
+#         print()
+#         c.execute(f"INSERT INTO Borrow VALUES (NULL, {student_id}, {book_id}, '1/11/2022', '1/12/2022', 1)")
+
+
+# except Exception as e:
+#     print(e)
 
 close_database_link(conn)
